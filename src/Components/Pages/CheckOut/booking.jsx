@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Book from "./book";
-import axios from "axios";
+// import axios from "axios";
+import UseAxios from "../../Hooks/useAxios";
 
 const Booking = () => {
   const { user } = useContext(AuthContext);
   const [booking, setBooking] = useState([]);
-  const url = `http://localhost:5000/booking?email=${user?.email}`;
+  const axios = UseAxios();
+  const url = `/booking?email=${user?.email}`;
 
   useEffect(() => {
-    axios.get(url, { withCredentials: true }).then((res) => {
+    axios(url).then((res) => {
       setBooking(res.data);
     });
 
